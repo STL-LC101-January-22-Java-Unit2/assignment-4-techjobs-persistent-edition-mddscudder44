@@ -4,6 +4,7 @@ import mockit.Expectations;
 import mockit.Mocked;
 import org.junit.jupiter.api.Test;
 import org.launchcode.techjobs.persistent.controllers.EmployerController;
+import org.launchcode.techjobs.persistent.controllers.SkillController;
 import org.launchcode.techjobs.persistent.models.Employer;
 import org.launchcode.techjobs.persistent.models.Skill;
 import org.launchcode.techjobs.persistent.models.data.EmployerRepository;
@@ -452,12 +453,12 @@ public class TestTaskTwo extends AbstractTest {
         assertEquals(SkillRepository.class, skillRepositoryField.getType(), "skillRepository must be of type SkillRepository");
         assertNotNull(skillRepositoryField.getAnnotation(Autowired.class), "skillRepository must have the @Autowired annotation");
     }
-}
+
 
     /*
      * Verifies that SkillController.index is properly defined
      * */
-   /* @Test
+    @Test
     public void testSkillControllerIndexMethodDefinition (@Mocked SkillRepository skillRepository) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, NoSuchFieldException {
         Class skillControllerClass = getClassByName("controllers.SkillController");
         Method indexMethod = null;
@@ -497,10 +498,10 @@ public class TestTaskTwo extends AbstractTest {
         indexMethod.invoke(skillController, model);
     }
 
-    /*
-     * Verify that processAddSkillForm saves a new skill to the database
-     * */
-   /* @Test
+
+     // Verify that processAddSkillForm saves a new skill to the database
+
+    @Test
     public void testNewSkillIsSaved (@Mocked SkillRepository skillRepository, @Mocked Errors errors) throws ClassNotFoundException, NoSuchMethodException, NoSuchFieldException, IllegalAccessException, InvocationTargetException {
         Class skillControllerClass = getClassByName("controllers.SkillController");
         Method processAddSkillFormMethod = skillControllerClass.getMethod("processAddSkillForm", Skill.class, Errors.class, Model.class);
@@ -524,36 +525,36 @@ public class TestTaskTwo extends AbstractTest {
     /*
      * Verifies that displayViewSkill calls findById to retrieve an skill object
      * */
-//    @Test
-//    public void testDisplayViewSkillCallsFindById (@Mocked SkillRepository skillRepository) throws ClassNotFoundException, NoSuchMethodException, NoSuchFieldException, IllegalAccessException, InvocationTargetException {
-//        Class skillControllerClass = getClassByName("controllers.SkillController");
-//        Method displayViewSkillMethod = skillControllerClass.getMethod("displayViewSkill", Model.class, int.class);
-//
-//        new Expectations() {{
-//            skillRepository.findById(1);
-//        }};
-//
-//        Model model = new ExtendedModelMap();
-//        SkillController skillController = new SkillController();
-//        Field skillRepositoryField = skillControllerClass.getDeclaredField("skillRepository");
-//        skillRepositoryField.setAccessible(true);
-//        skillRepositoryField.set(skillController, skillRepository);
-//        displayViewSkillMethod.invoke(skillController, model, 1);
-//    }
-//
-//     --- END CONTROLLER TESTS --- //
-//
-//    /*
-//    * Tests SQL query for task 2
-//    * */
-//    @Test
-//    public void testSqlQuery() throws IOException {
-//        String queryFileContents = getFileContents("queries.sql");
-//
-//        Pattern queryPattern = Pattern.compile("SELECT\\s+name\\s+FROM\\s+employer\\s+WHERE\\s+location\\s+=\\s+\"St.\\s+Louis\\s+City\";", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
-//        Matcher queryMatcher = queryPattern.matcher(queryFileContents);
-//        boolean queryFound = queryMatcher.find();
-//        assertTrue(queryFound, "Task 2 SQL query is incorrect. Test your query against your database to find the error.");
-//    }
-//    */
-//}
+    @Test
+    public void testDisplayViewSkillCallsFindById (@Mocked SkillRepository skillRepository) throws ClassNotFoundException, NoSuchMethodException, NoSuchFieldException, IllegalAccessException, InvocationTargetException {
+        Class skillControllerClass = getClassByName("controllers.SkillController");
+        Method displayViewSkillMethod = skillControllerClass.getMethod("displayViewSkill", Model.class, int.class);
+
+        new Expectations() {{
+            skillRepository.findById(1);
+        }};
+
+        Model model = new ExtendedModelMap();
+        SkillController skillController = new SkillController();
+        Field skillRepositoryField = skillControllerClass.getDeclaredField("skillRepository");
+        skillRepositoryField.setAccessible(true);
+        skillRepositoryField.set(skillController, skillRepository);
+        displayViewSkillMethod.invoke(skillController, model, 1);
+    }
+
+     //--- END CONTROLLER TESTS --- //
+
+    /*
+    * Tests SQL query for task 2
+    * */
+    @Test
+    public void testSqlQuery() throws IOException {
+        String queryFileContents = getFileContents("queries.sql");
+
+        Pattern queryPattern = Pattern.compile("SELECT\\s+name\\s+FROM\\s+employer\\s+WHERE\\s+location\\s+=\\s+\"St.\\s+Louis\\s+City\";", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
+        Matcher queryMatcher = queryPattern.matcher(queryFileContents);
+        boolean queryFound = queryMatcher.find();
+        assertTrue(queryFound, "Task 2 SQL query is incorrect. Test your query against your database to find the error.");
+    }
+
+}

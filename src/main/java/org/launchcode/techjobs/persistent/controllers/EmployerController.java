@@ -19,6 +19,22 @@ public class EmployerController {
     private EmployerRepository employerRepository;
 
 
+//    @GetMapping("")
+//    public String index(Model model){
+//        model.addAttribute("title", "All Employers");
+//        model.addAttribute("employer", employerRepository.findAll());
+//        return "employers/index";
+//    }
+
+    @GetMapping("")
+    public String index(Model model) {
+        model.addAttribute("title", "All Employers");
+        model.addAttribute("employers", employerRepository.findAll());
+        return "employers/index";
+    }
+
+
+
     @GetMapping("add")
     public String displayAddEmployerForm(Model model) {
         model.addAttribute(new Employer());
@@ -47,13 +63,6 @@ public class EmployerController {
         } else {
             return "redirect:../";
         }
-    }
-
-    @GetMapping("")
-    public String index(Model model){
-        model.addAttribute("title", "All Employers");
-        model.addAttribute("employer", employerRepository.findAll());
-        return "employers/index";
     }
 
 
